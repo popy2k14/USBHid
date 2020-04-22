@@ -14,6 +14,8 @@ namespace UsbHid
 
         private DeviceInformationStructure _deviceInformation;
         public string DevicePath { get { return _deviceInformation.DevicePathName; } }
+        public ushort InputReportByteLength { get { return _deviceInformation.Capabilities.InputReportByteLength; } }
+        public ushort OutputReportByteLength { get { return _deviceInformation.Capabilities.OutputReportByteLength; } }
         public bool IsDeviceConnected { get { return _deviceInformation.IsDeviceAttached; } }
         public UsbDescriptorStrings DescriptorStrings { get { return _deviceInformation.DescriptorStrings; } }
         private readonly BackgroundWorker _worker;

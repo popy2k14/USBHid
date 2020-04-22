@@ -6,10 +6,20 @@ namespace UsbHid.USB.Classes.Messaging
     {
         private byte[] _parameters;
         public byte[] MessageData { get { return GetMessageData(); } }
+        private int _ReportLength = 65;
+        public int ReportLength
+        {
+            get => _ReportLength; private set
+            {
+                if (value < 2)
+                    throw new ArgumentOutOfRangeException("value", "Paramater limit is 2");
+                _ReportLength = value;
+            }
+        }
 
         private byte[] GetMessageData()
         {
-            var result = new byte[65];
+            var result = new byte[ReportLength];
             result[0] = 0;
             result[1] = Command;
             if (Parameters != null)
@@ -26,8 +36,8 @@ namespace UsbHid.USB.Classes.Messaging
             get { return _parameters; }
             set
             {
-                if (value.Length < 1) throw new ArgumentOutOfRangeException("value", "Paramater needs to be at least 1 byte long");
-                if (value.Length > 63) throw new ArgumentOutOfRangeException("value", "Paramater canot be longer than 63 bytes");
+                if (value != null && value.Length < 1) throw new ArgumentOutOfRangeException("value", "Paramater needs to be at least 1 byte long");
+                if (value != null && value.Length > ReportLength - 2) throw new ArgumentOutOfRangeException("value", $"Paramater canot be longer than {ReportLength - 2} bytes");
                 _parameters = value;
             }
         }
@@ -37,8 +47,9 @@ namespace UsbHid.USB.Classes.Messaging
             Command = command;
         }
 
-        public CommandMessage(byte command, byte[] parameters) : this(command)
+        public CommandMessage(byte command, byte[] parameters, ushort reportLength) : this(command)
         {
+            ReportLength = reportLength;
             Parameters = parameters;
         }
 
