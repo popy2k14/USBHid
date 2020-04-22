@@ -18,23 +18,7 @@ namespace UsbHid.USB.Structures
         public IntPtr DeviceNotificationHandle; // The device's notification handle
 
         // The device's path name
-        private string _devicePathName;
-        public string DevicePathName
-        {
-            get { return _devicePathName; }
-            set
-            {
-                _devicePathName = value;
-                if (string.IsNullOrEmpty(_devicePathName))
-                {
-                    DeviceChangeNotifier.Stop();
-                }
-                else
-                {
-                    DeviceChangeNotifier.Start(_devicePathName);
-                }
-            }
-        }
+        public string DevicePathName { get; internal set; }
 
         // Device attachment state flag
         private bool _isDeviceAttached;

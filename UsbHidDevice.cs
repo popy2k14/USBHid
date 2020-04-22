@@ -2,6 +2,7 @@ using System;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using UsbHid.USB.Classes;
 using UsbHid.USB.Classes.Messaging;
 using UsbHid.USB.Structures;
@@ -16,8 +17,20 @@ namespace UsbHid
         public string DevicePath { get { return _deviceInformation.DevicePathName; } }
         public ushort InputReportByteLength { get { return _deviceInformation.Capabilities.InputReportByteLength; } }
         public ushort OutputReportByteLength { get { return _deviceInformation.Capabilities.OutputReportByteLength; } }
-        public bool IsDeviceConnected { get { return _deviceInformation.IsDeviceAttached; } }
+        public bool IsDeviceConnected { get { return _deviceInformation.IsDeviceAttached && DeviceDiscovery.FindAllHidDevices().Any(x => x.Equals(_deviceInformation.DevicePathName)); } }
         public UsbDescriptorStrings DescriptorStrings { get { return _deviceInformation.DescriptorStrings; } }
+        private bool _monitorDeviceEvents;
+        private readonly HidDeviceEventMonitor _deviceEventMonitor;
+        public bool MonitorDeviceEvents
+        {
+            get { return _monitorDeviceEvents; }
+            set
+            {
+                if (value & _monitorDeviceEvents == false) _deviceEventMonitor.Init();
+                _monitorDeviceEvents = value;
+            }
+        }
+
         private readonly BackgroundWorker _worker;
         private FileStream _fsDeviceRead;
 
@@ -41,7 +54,6 @@ namespace UsbHid
         public UsbHidDevice(string devicePath)
         {
             _deviceInformation.DevicePathName = devicePath;
-
             _worker = new BackgroundWorker();
             _worker.DoWork += WorkerDoWork;
             if (DeviceDiscovery.FindTargetDevice(ref _deviceInformation))
@@ -50,8 +62,9 @@ namespace UsbHid
             }
 
             _deviceInformation.ConnectedChanged += DeviceConnectedChanged;
-            DeviceChangeNotifier.DeviceAttached += DeviceChangeNotifierDeviceAttached;
-            DeviceChangeNotifier.DeviceDetached += DeviceChangeNotifierDeviceDetached;
+            _deviceEventMonitor = new HidDeviceEventMonitor(this);
+            _deviceEventMonitor.Connected += ReportConnected;
+            _deviceEventMonitor.Disconnected += ReportDisConnected;
         }
 
         ~UsbHidDevice()
@@ -219,6 +232,7 @@ namespace UsbHid
 
         public void Dispose()
         {
+            if (MonitorDeviceEvents) MonitorDeviceEvents = false;
             Disconnect();
             GC.SuppressFinalize(this);
         }
