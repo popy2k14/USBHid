@@ -151,6 +151,33 @@ namespace UsbHid
             return DeviceCommunication.WriteRawReportToDevice(message.MessageData, ref _deviceInformation);
         }
 
+        public bool SetFeature(byte[] FeatureReport)
+        {
+            return USB.Classes.DllWrappers.Hid.HidD_SetFeature(_deviceInformation.ReadHandle, FeatureReport, _deviceInformation.Capabilities.FeatureReportByteLength);
+        }
+
+        public bool GetFeature(out byte[] FeatureReport)
+        {
+            if (_deviceInformation.Capabilities.FeatureReportByteLength <= 0)
+            {
+                FeatureReport = new byte[0];
+                return false;
+            }
+            FeatureReport = new byte[_deviceInformation.Capabilities.FeatureReportByteLength];
+            byte[] buffer = new byte[_deviceInformation.Capabilities.FeatureReportByteLength];
+            bool success;
+            try
+            {
+                success = USB.Classes.DllWrappers.Hid.HidD_GetFeature(_deviceInformation.ReadHandle, buffer, _deviceInformation.Capabilities.FeatureReportByteLength);
+                if (success)
+                    FeatureReport = buffer;
+            }
+            catch (Exception e)
+            {
+                throw new Exception($"Error accessing HID device '{_deviceInformation.DevicePathName}'.", e);
+            }
+            return success;
+        }
         #endregion
 
         #region Private
