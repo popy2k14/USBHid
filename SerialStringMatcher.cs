@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using UsbHid.USB.Classes;
-using UsbHid.USB.Structures;
+﻿using UsbHid.USB.Classes;
 
 namespace UsbHid
 {

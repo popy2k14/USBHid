@@ -1,5 +1,5 @@
-﻿using System;
-using Microsoft.Win32.SafeHandles;
+﻿using Microsoft.Win32.SafeHandles;
+using System;
 using UsbHid.USB.Classes;
 
 namespace UsbHid.USB.Structures
@@ -42,10 +42,11 @@ namespace UsbHid.USB.Structures
         public bool IsDeviceAttached
         {
             get { return _isDeviceAttached; }
-            set {
+            set
+            {
                 if (_isDeviceAttached == value) return;
                 _isDeviceAttached = value;
-                if(ConnectedChanged == null) return;
+                if (ConnectedChanged == null) return;
                 ConnectedChanged(value);
             }
         }

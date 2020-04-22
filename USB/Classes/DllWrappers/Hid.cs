@@ -1,6 +1,6 @@
-﻿using System;
+﻿using Microsoft.Win32.SafeHandles;
+using System;
 using System.Runtime.InteropServices;
-using Microsoft.Win32.SafeHandles;
 using System.Text;
 using UsbHid.USB.Structures;
 
@@ -40,9 +40,9 @@ namespace UsbHid.USB.Classes.DllWrappers
 
         [DllImport("hid.dll", SetLastError = true)]
         public static extern bool HidD_SetOutputReport(SafeFileHandle hidDeviceObject, byte[] lpReportBuffer, Int32 reportBufferLength);
-     
+
         [DllImport("hid.dll", SetLastError = true)]
-        public static extern Int32 HidP_GetCaps(IntPtr preparsedData,ref HidpCaps capabilities);
+        public static extern Int32 HidP_GetCaps(IntPtr preparsedData, ref HidpCaps capabilities);
 
         [DllImport("hid.dll", SetLastError = true)]
         public static extern int HidP_GetValueCaps(Int32 reportType, byte[] valueCaps, ref Int32 valueCapsLength, IntPtr preparsedData);

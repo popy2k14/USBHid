@@ -272,6 +272,6 @@ namespace UsbHid.USB.Classes
                 Hid.HidD_FreePreparsedData(preparsedData);
             }
             return true;
-        }      
+        }
     }
 }

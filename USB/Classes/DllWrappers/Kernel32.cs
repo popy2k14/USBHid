@@ -1,6 +1,6 @@
-﻿using System;
+﻿using Microsoft.Win32.SafeHandles;
+using System;
 using System.Runtime.InteropServices;
-using Microsoft.Win32.SafeHandles;
 
 namespace UsbHid.USB.Classes.DllWrappers
 {
@@ -22,7 +22,7 @@ namespace UsbHid.USB.Classes.DllWrappers
         public static extern Boolean ReadFile(SafeFileHandle hFile, IntPtr lpBuffer, Int32 nNumberOfBytesToRead, ref Int32 lpNumberOfBytesRead, IntPtr lpOverlapped);
 
         [DllImport("kernel32.dll", SetLastError = true)]
-        public static extern Int32 WaitForSingleObject(IntPtr hHandle, Int32 dwMilliseconds); 
+        public static extern Int32 WaitForSingleObject(IntPtr hHandle, Int32 dwMilliseconds);
 
         [DllImport("kernel32.dll", SetLastError = true)]
         public static extern Boolean WriteFile(SafeFileHandle hFile, Byte[] lpBuffer, Int32 nNumberOfBytesToWrite, ref Int32 lpNumberOfBytesWritten, IntPtr lpOverlapped);

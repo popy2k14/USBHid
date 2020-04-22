@@ -25,7 +25,7 @@ namespace UsbHid
 
         public delegate void DataReceivedDelegate(byte[] data);
         public event DataReceivedDelegate DataReceived;
-             
+
         public delegate void ConnectedDelegate();
         public event ConnectedDelegate OnConnected;
 
@@ -105,7 +105,7 @@ namespace UsbHid
 
         private void DeviceChangeNotifierDeviceAttached()
         {
-            if(IsDeviceConnected) Disconnect();
+            if (IsDeviceConnected) Disconnect();
             //TODO: FIX THIS!
         }
 
@@ -127,7 +127,7 @@ namespace UsbHid
             {
                 _fsDeviceRead.Close();
             }
-            
+
             if (IsDeviceConnected)
             {
                 _deviceInformation.HidHandle.Close();
@@ -181,7 +181,7 @@ namespace UsbHid
         {
             if (OnDisConnected != null) OnDisConnected();
         }
-        
+
         #endregion
 
         #endregion

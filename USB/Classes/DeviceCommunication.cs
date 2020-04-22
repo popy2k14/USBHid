@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Threading;
 using UsbHid.USB.Classes.DllWrappers;
@@ -76,7 +75,7 @@ namespace UsbHid.USB.Classes
 
                 // Report receieved correctly, copy the unmanaged input buffer over to the managed buffer
                 Marshal.Copy(nonManagedBuffer, inputReportBuffer, 0, numberOfBytesRead);
-           }
+            }
             catch (Exception)
             {
                 return false;
@@ -135,14 +134,14 @@ namespace UsbHid.USB.Classes
 
                     switch (result)
                     {
-                            // Has the ReadFile completed successfully?
+                        // Has the ReadFile completed successfully?
                         case Constants.WaitObject0:
 
                             // Get the number of bytes transferred
                             Kernel32.GetOverlappedResult(deviceInformation.ReadHandle, nonManagedOverlapped, ref numberOfBytesRead, false);
                             break;
 
-                            // Did the FileRead operation timeout?
+                        // Did the FileRead operation timeout?
                         case Constants.WaitTimeout:
 
                             // Cancel the ReadFile operation
@@ -155,14 +154,14 @@ namespace UsbHid.USB.Classes
                             //detachUsbDevice();
 
                             return false;
-                        
+
                         // Some other unspecified error has occurred?
                         default:
 
                             // Cancel the ReadFile operation
 
                             // Detach the USB device to try to get us back in a known state
-                            
+
                             return false;
                     }
                 }

@@ -30,7 +30,7 @@ namespace UsbHid.USB.Classes
 
         private static DeviceChangeNotifier mInstance;
 
-        public static void Start( string devicePath )
+        public static void Start(string devicePath)
         {
             devicepath = devicePath;
             var t = new Thread(RunForm);
@@ -38,7 +38,7 @@ namespace UsbHid.USB.Classes
             t.IsBackground = true;
             t.Start();
         }
-        
+
         public static void Stop()
         {
             try
@@ -66,7 +66,7 @@ namespace UsbHid.USB.Classes
         protected override void SetVisibleCore(bool value)
         {
             // Prevent window getting visible
-            if (mInstance == null) 
+            if (mInstance == null)
             {
                 mInstance = this;
                 try
@@ -81,7 +81,7 @@ namespace UsbHid.USB.Classes
 
             base.SetVisibleCore(false);
         }
-        
+
         protected override void WndProc(ref Message m)
         {
             // Trap WM_DEVICECHANGE
@@ -158,7 +158,7 @@ namespace UsbHid.USB.Classes
                         Debug.WriteLine(ex.Message);
                     }
                 }
-            } 
+            }
 
             return false;
         }

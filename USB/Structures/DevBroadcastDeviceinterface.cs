@@ -7,9 +7,9 @@ namespace UsbHid.USB.Structures
     public class DevBroadcastDeviceinterface
     {
         internal Int32 dbcc_size;
-        internal Int32 dbcc_devicetype; 
-        internal Int32 dbcc_reserved; 
-        internal Guid dbcc_classguid; 
+        internal Int32 dbcc_devicetype;
+        internal Int32 dbcc_reserved;
+        internal Guid dbcc_classguid;
         internal Int16 dbcc_name;
     }
 }

@@ -14,13 +14,13 @@ namespace UsbHid.USB.Classes.Messaging
             result[1] = Command;
             if (Parameters != null)
             {
-                Array.Copy(Parameters, 0 ,result, 2, Parameters.Length);
+                Array.Copy(Parameters, 0, result, 2, Parameters.Length);
             }
             return result;
         }
 
         public byte Command { get; set; }
-    
+
         public byte[] Parameters
         {
             get { return _parameters; }
@@ -32,12 +32,12 @@ namespace UsbHid.USB.Classes.Messaging
             }
         }
 
-        public CommandMessage ( byte command )
+        public CommandMessage(byte command)
         {
             Command = command;
         }
 
-        public CommandMessage( byte command, byte[] parameters) : this(command)
+        public CommandMessage(byte command, byte[] parameters) : this(command)
         {
             Parameters = parameters;
         }
