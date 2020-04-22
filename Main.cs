@@ -38,7 +38,7 @@ namespace UsbHid
                     13, (1<<0)+(1<<3)+(1<<6)+(1<<7)+(1<<4),
                     14, (1<<3)+(1<<5),
                     15, (1<<0)+(1<<2)+(1<<3)+(1<<4)+(1<<6)+(1<<7)
-                });
+                }, device.OutputReportByteLength);
                 device.SendMessage(command);
 
                 System.Diagnostics.Debug.WriteLine(devices);
