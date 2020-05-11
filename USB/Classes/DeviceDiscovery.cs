@@ -15,7 +15,6 @@ namespace UsbHid.USB.Classes
         {
             var listOfDevicePathNames = new List<string>();
             var detailDataBuffer = IntPtr.Zero;
-            var deviceInfoSet = new IntPtr();
             int listIndex = 0;
             var deviceInterfaceData = new SpDeviceInterfaceData();
 
@@ -25,7 +24,7 @@ namespace UsbHid.USB.Classes
             var systemHidGuid = new Guid();
             Hid.HidD_GetHidGuid(ref systemHidGuid);
 
-            deviceInfoSet = SetupDiGetClassDevs(ref systemHidGuid);
+            IntPtr deviceInfoSet = SetupDiGetClassDevs(ref systemHidGuid);
             deviceInterfaceData.cbSize = Marshal.SizeOf(deviceInterfaceData);
 
             try

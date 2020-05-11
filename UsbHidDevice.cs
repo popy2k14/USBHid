@@ -86,7 +86,7 @@ namespace UsbHid
                 syncObj.Fs.EndRead(iResult);
                 try
                 {
-                    if (DataReceived != null) DataReceived(syncObj.Buf);
+                    DataReceived?.Invoke(syncObj.Buf);
                 }
                 finally
                 {
@@ -111,17 +111,6 @@ namespace UsbHid
             {
                 ReportDisConnected();
             }
-        }
-
-        private void DeviceChangeNotifierDeviceDetached()
-        {
-            Disconnect();
-        }
-
-        private void DeviceChangeNotifierDeviceAttached()
-        {
-            if (IsDeviceConnected) Disconnect();
-            //TODO: FIX THIS!
         }
 
         #endregion
@@ -216,12 +205,12 @@ namespace UsbHid
 
         private void ReportConnected()
         {
-            if (OnConnected != null) OnConnected();
+            OnConnected?.Invoke();
         }
 
         private void ReportDisConnected()
         {
-            if (OnDisConnected != null) OnDisConnected();
+            OnDisConnected?.Invoke();
         }
 
         #endregion
