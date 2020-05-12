@@ -77,7 +77,6 @@ namespace UsbHid.USB.Classes
                         continue;
                     }
 
-
                     // Skip over cbsize (4 bytes) to get the address of the devicePathName.
                     var pDevicePathName = IntPtr.Add(detailDataBuffer, 4);
 
@@ -131,7 +130,7 @@ namespace UsbHid.USB.Classes
                 var deviceHandle = GetDeviceInformationHidHandle(deviceInstancePath);
                 UsbDescriptorStrings descriptorStrings;
 
-                if (deviceHandle.IsInvalid || !(matchingRules.DescriptorsMatch(descriptorStrings = GetDescriptionStrings(deviceHandle))))
+                if (deviceHandle.IsInvalid || !matchingRules.DescriptorsMatch(descriptorStrings = GetDescriptionStrings(deviceHandle)))
                 {
                     deviceHandle.Close();
                     continue;

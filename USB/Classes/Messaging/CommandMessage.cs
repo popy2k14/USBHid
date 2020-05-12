@@ -36,8 +36,8 @@ namespace UsbHid.USB.Classes.Messaging
             get => _parameters;
             set
             {
-                if (value != null && value.Length < 1) throw new ArgumentOutOfRangeException("value", "Paramater needs to be at least 1 byte long");
-                if (value != null && value.Length > ReportLength - 2) throw new ArgumentOutOfRangeException("value", $"Paramater canot be longer than {ReportLength - 2} bytes");
+                if (value?.Length < 1) throw new ArgumentOutOfRangeException("value", "Paramater needs to be at least 1 byte long");
+                if (value?.Length > ReportLength - 2) throw new ArgumentOutOfRangeException("value", $"Paramater canot be longer than {ReportLength - 2} bytes");
                 _parameters = value;
             }
         }
@@ -52,6 +52,5 @@ namespace UsbHid.USB.Classes.Messaging
             ReportLength = reportLength;
             Parameters = parameters;
         }
-
     }
 }
