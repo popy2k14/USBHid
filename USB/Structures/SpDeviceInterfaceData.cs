@@ -7,9 +7,9 @@ namespace UsbHid.USB.Structures
     [StructLayout(LayoutKind.Sequential)]
     public struct SpDeviceInterfaceData
     {
-        public Int32 cbSize;
+        public int cbSize;
         public Guid InterfaceClassGuid;
-        public Int32 Flags;
+        public int Flags;
         public IntPtr Reserved;
     }
 }

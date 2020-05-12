@@ -206,7 +206,7 @@ namespace UsbHid.USB.Classes
             long pointerToBuffer = 0;
 
             // Define a temporary buffer for assembling partial data reads into the completed inputReportBuffer
-            var temporaryBuffer = new Byte[inputReportBuffer.Length];
+            var temporaryBuffer = new byte[inputReportBuffer.Length];
 
             // Range check the number of reports
             if (numberOfReports == 0)

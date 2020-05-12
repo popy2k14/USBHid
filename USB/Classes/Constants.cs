@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace UsbHid.USB.Classes
+﻿namespace UsbHid.USB.Classes
 {
     public static class Constants
     {
@@ -30,17 +28,17 @@ namespace UsbHid.USB.Classes
         public const short HidPFeature = 2;
 
         // from dbt.h
-        internal const Int32 DbtDevicearrival = 0x8000;
-        internal const Int32 DbtDeviceremovecomplete = 0x8004;
-        internal const Int32 DbtDevtypDeviceinterface = 5;
-        internal const Int32 DbtDevtypHandle = 6;
-        internal const Int32 DbtDevnodesChanged = 7;
-        internal const Int32 DeviceNotifyAllInterfaceClasses = 4;
-        internal const Int32 DeviceNotifyServiceHandle = 1;
-        internal const Int32 DeviceNotifyWindowHandle = 0;
-        internal const Int32 WmDevicechange = 0x219;
+        internal const int DbtDevicearrival = 0x8000;
+        internal const int DbtDeviceremovecomplete = 0x8004;
+        internal const int DbtDevtypDeviceinterface = 5;
+        internal const int DbtDevtypHandle = 6;
+        internal const int DbtDevnodesChanged = 7;
+        internal const int DeviceNotifyAllInterfaceClasses = 4;
+        internal const int DeviceNotifyServiceHandle = 1;
+        internal const int DeviceNotifyWindowHandle = 0;
+        internal const int WmDevicechange = 0x219;
 
         // Generic
-        internal const Int32 ERROR_NO_MORE_ITEMS = 259;
+        internal const int ERROR_NO_MORE_ITEMS = 259;
     }
 }

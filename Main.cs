@@ -5,13 +5,13 @@ namespace UsbHid
 {
     public static class Main
     {
-        static class Program
+        private static class Program
         {
             /// <summary>
             /// The main entry point for the application.
             /// </summary>
             [STAThread]
-            static void Main()
+            private static void Main()
             {
                 var devices = DeviceDiscovery.FindHidDevices(new SerialStringMatcher("aimforfs.eu:RMP"));
                 var device = new UsbHidDevice(devices[0].Key);

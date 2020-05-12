@@ -5,7 +5,7 @@ namespace UsbHid.USB.Classes.Messaging
     public class CommandMessage : IMesage
     {
         private byte[] _parameters;
-        public byte[] MessageData { get { return GetMessageData(); } }
+        public byte[] MessageData => GetMessageData();
         private int _ReportLength = 65;
         public int ReportLength
         {
@@ -33,7 +33,7 @@ namespace UsbHid.USB.Classes.Messaging
 
         public byte[] Parameters
         {
-            get { return _parameters; }
+            get => _parameters;
             set
             {
                 if (value != null && value.Length < 1) throw new ArgumentOutOfRangeException("value", "Paramater needs to be at least 1 byte long");

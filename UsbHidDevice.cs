@@ -14,16 +14,16 @@ namespace UsbHid
         #region Variables
 
         private DeviceInformationStructure _deviceInformation;
-        public string DevicePath { get { return _deviceInformation.DevicePathName; } }
-        public ushort InputReportByteLength { get { return _deviceInformation.Capabilities.InputReportByteLength; } }
-        public ushort OutputReportByteLength { get { return _deviceInformation.Capabilities.OutputReportByteLength; } }
-        public bool IsDeviceConnected { get { return _deviceInformation.IsDeviceAttached && DeviceDiscovery.FindAllHidDevices().Any(x => x.Equals(_deviceInformation.DevicePathName)); } }
-        public UsbDescriptorStrings DescriptorStrings { get { return _deviceInformation.DescriptorStrings; } }
+        public string DevicePath => _deviceInformation.DevicePathName;
+        public ushort InputReportByteLength => _deviceInformation.Capabilities.InputReportByteLength;
+        public ushort OutputReportByteLength => _deviceInformation.Capabilities.OutputReportByteLength;
+        public bool IsDeviceConnected => _deviceInformation.IsDeviceAttached && DeviceDiscovery.FindAllHidDevices().Any(x => x.Equals(_deviceInformation.DevicePathName));
+        public UsbDescriptorStrings DescriptorStrings => _deviceInformation.DescriptorStrings;
         private bool _monitorDeviceEvents;
         private readonly HidDeviceEventMonitor _deviceEventMonitor;
         public bool MonitorDeviceEvents
         {
-            get { return _monitorDeviceEvents; }
+            get => _monitorDeviceEvents;
             set
             {
                 if (value & _monitorDeviceEvents == false) _deviceEventMonitor.Init();
@@ -186,7 +186,7 @@ namespace UsbHid
 
         private void BeginAsyncRead(ref FileStream fs, int iBufLen)
         {
-            var syncObj = new SyncObjT { Fs = fs, Buf = new Byte[iBufLen] };
+            var syncObj = new SyncObjT { Fs = fs, Buf = new byte[iBufLen] };
             try
             {
                 fs.BeginRead(syncObj.Buf, 0, iBufLen, ReadCompleted, syncObj);

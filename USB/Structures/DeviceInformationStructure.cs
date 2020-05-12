@@ -25,7 +25,7 @@ namespace UsbHid.USB.Structures
 
         public bool IsDeviceAttached
         {
-            get { return _isDeviceAttached; }
+            get => _isDeviceAttached;
             set
             {
                 if (_isDeviceAttached == value) return;

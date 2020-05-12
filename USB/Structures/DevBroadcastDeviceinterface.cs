@@ -6,10 +6,10 @@ namespace UsbHid.USB.Structures
     [StructLayout(LayoutKind.Sequential)]
     public class DevBroadcastDeviceinterface
     {
-        internal Int32 dbcc_size;
-        internal Int32 dbcc_devicetype;
-        internal Int32 dbcc_reserved;
+        internal int dbcc_size;
+        internal int dbcc_devicetype;
+        internal int dbcc_reserved;
         internal Guid dbcc_classguid;
-        internal Int16 dbcc_name;
+        internal short dbcc_name;
     }
 }
