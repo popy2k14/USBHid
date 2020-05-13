@@ -26,7 +26,7 @@ namespace UsbHid
             get => _monitorDeviceEvents;
             set
             {
-                if (value & _monitorDeviceEvents == false) _deviceEventMonitor.Init();
+                if (value && !_monitorDeviceEvents) _deviceEventMonitor.Init();
                 _monitorDeviceEvents = value;
             }
         }
@@ -127,10 +127,7 @@ namespace UsbHid
 
         public void Disconnect()
         {
-            if (_fsDeviceRead != null)
-            {
-                _fsDeviceRead.Close();
-            }
+            _fsDeviceRead?.Close();
 
             if (IsDeviceConnected)
             {
