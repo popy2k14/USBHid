@@ -3,6 +3,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Text.RegularExpressions;
 using UsbHid.USB.Classes;
 using UsbHid.USB.Classes.Messaging;
 using UsbHid.USB.Structures;
@@ -15,6 +16,26 @@ namespace UsbHid
 
         private DeviceInformationStructure _deviceInformation;
         public string DevicePath => _deviceInformation.DevicePathName;
+        public uint Pid
+        {
+            get
+            {
+                var m = Regex.Match(_deviceInformation.DevicePathName, "&pid_(.*?)#");
+                if (m.Success)
+                    return (uint)Convert.ToInt32(m.Groups[1].Value, 16);
+                return 0;
+            }
+        }
+        public uint Vid
+        {
+            get
+            {
+                var m = Regex.Match(_deviceInformation.DevicePathName, "#vid_(.*?)&");
+                if (m.Success)
+                    return (uint)Convert.ToInt32(m.Groups[1].Value, 16);
+                return 0;
+            }
+        }
         public ushort InputReportByteLength => _deviceInformation.Capabilities.InputReportByteLength;
         public ushort OutputReportByteLength => _deviceInformation.Capabilities.OutputReportByteLength;
         public bool IsDeviceConnected => _deviceInformation.IsDeviceAttached && DeviceDiscovery.FindAllHidDevices().Any(x => x.Equals(_deviceInformation.DevicePathName));
@@ -41,10 +62,10 @@ namespace UsbHid
         public delegate void DataReceivedDelegate(byte[] data);
         public event DataReceivedDelegate DataReceived;
 
-        public delegate void ConnectedDelegate();
+        public delegate void ConnectedDelegate(UsbHidDevice device);
         public event ConnectedDelegate OnConnected;
 
-        public delegate void DisConnectedDelegate();
+        public delegate void DisConnectedDelegate(UsbHidDevice device);
         public event DisConnectedDelegate OnDisConnected;
 
         #endregion
@@ -117,7 +138,7 @@ namespace UsbHid
 
         #region Methods
 
-        #region Public 
+        #region Public
 
         public bool Connect()
         {
@@ -137,6 +158,11 @@ namespace UsbHid
 
                 _deviceInformation.IsDeviceAttached = false;
             }
+        }
+
+        public bool SendMessage(byte[] message)
+        {
+            return DeviceCommunication.WriteRawReportToDevice(message, ref _deviceInformation);
         }
 
         public bool SendMessage(IMesage message)
@@ -202,12 +228,12 @@ namespace UsbHid
 
         private void ReportConnected()
         {
-            OnConnected?.Invoke();
+            OnConnected?.Invoke(this);
         }
 
         private void ReportDisConnected()
         {
-            OnDisConnected?.Invoke();
+            OnDisConnected?.Invoke(this);
         }
 
         #endregion
