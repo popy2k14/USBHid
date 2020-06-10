@@ -71,8 +71,12 @@ namespace UsbHid
         #endregion
 
         #region Construction
-
-        public UsbHidDevice(string devicePath)
+        /// <summary>
+        /// Create HID connection
+        /// </summary>
+        /// <param name="devicePath">Device Path(could got it from<code>DeviceDiscovery.FindHidDevices(new VidPidMatcher(VID, PID))</code></param>
+        /// <param name="MonitorDeviceEvents">Regist Connected/Disconnected event</param>
+        public UsbHidDevice(string devicePath, bool MonitorDeviceEvents = true)
         {
             _deviceInformation.DevicePathName = devicePath;
             _worker = new BackgroundWorker();
@@ -86,6 +90,7 @@ namespace UsbHid
             _deviceEventMonitor = new HidDeviceEventMonitor(this);
             _deviceEventMonitor.Connected += ReportConnected;
             _deviceEventMonitor.Disconnected += ReportDisConnected;
+            this.MonitorDeviceEvents = MonitorDeviceEvents;
         }
 
         ~UsbHidDevice()
